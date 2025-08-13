@@ -6,7 +6,7 @@
 ![React](https://img.shields.io/badge/React-18.2.0-blue)  
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.0.0-blue)  
 ![Vite](https://img.shields.io/badge/Bundler-Vite-orange)  
-
+<img width="1845" height="852" alt="image" src="https://github.com/balu1006/react-form-builder/blob/main/image.png" />
 ---
 
 ## 📖 Overview  
@@ -65,8 +65,6 @@ npm run dev
 
 Visit http://localhost:5173 in your browser.
 
-<img width="1845" height="852" alt="image" src="https://github.com/user-attachments/assets/d339073a-b715-441f-bded-e3affa801ce9" />
-https://github.com/balu1006/react-form-builder/blob/main/image.png
 
 
 react-form-builder/
@@ -80,5 +78,4 @@ react-form-builder/
 ├── package.json
 ├── README.md
 └── LICENSE
-
 
