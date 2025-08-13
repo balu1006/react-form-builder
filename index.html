@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Builder</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <div id="app">
+        <!-- Navigation -->
+        <nav class="navbar">
+            <div class="container">
+                <div class="navbar__content">
+                    <h1 class="navbar__title">Form Builder</h1>
+                    <div class="navbar__links">
+                        <a href="#create" class="nav-link" data-route="create">Create Form</a>
+                        <a href="#preview" class="nav-link" data-route="preview">Preview</a>
+                        <a href="#myforms" class="nav-link" data-route="myforms">My Forms</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Create Form Page -->
+            <div id="create-page" class="page hidden">
+                <div class="container">
+                    <div class="page-header">
+                        <h2>Create Form</h2>
+                        <div class="form-actions">
+                            <button class="btn btn--secondary" id="clear-form">Clear Form</button>
+                            <button class="btn btn--primary" id="save-form">Save Form</button>
+                        </div>
+                    </div>
+                    
+                    <div class="form-builder">
+                        <div class="field-palette">
+                            <h3>Add Fields</h3>
+                            <div class="field-types">
+                                <button class="field-type-btn" data-type="text">
+                                    <span class="material-icons">text_fields</span>
+                                    Text Input
+                                </button>
+                                <button class="field-type-btn" data-type="number">
+                                    <span class="material-icons">numbers</span>
+                                    Number Input
+                                </button>
+                                <button class="field-type-btn" data-type="textarea">
+                                    <span class="material-icons">notes</span>
+                                    Text Area
+                                </button>
+                                <button class="field-type-btn" data-type="select">
+                                    <span class="material-icons">arrow_drop_down_circle</span>
+                                    Select Dropdown
+                                </button>
+                                <button class="field-type-btn" data-type="radio">
+                                    <span class="material-icons">radio_button_checked</span>
+                                    Radio Buttons
+                                </button>
+                                <button class="field-type-btn" data-type="checkbox">
+                                    <span class="material-icons">check_box</span>
+                                    Checkboxes
+                                </button>
+                                <button class="field-type-btn" data-type="date">
+                                    <span class="material-icons">calendar_today</span>
+                                    Date Picker
+                                </button>
+                                <button class="field-type-btn" data-type="derived">
+                                    <span class="material-icons">calculate</span>
+                                    Derived Field
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="form-canvas">
+                            <div class="form-preview-container">
+                                <h3>Form Preview</h3>
+                                <div id="form-fields" class="form-fields"></div>
+                                <div class="empty-state" id="empty-state">
+                                    <span class="material-icons">add_circle_outline</span>
+                                    <p>Add fields to start building your form</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Preview Page -->
+            <div id="preview-page" class="page hidden">
+                <div class="container">
+                    <div class="page-header">
+                        <h2>Form Preview</h2>
+                        <div class="form-actions">
+                            <button class="btn btn--secondary" id="reset-preview">Reset Form</button>
+                            <button class="btn btn--primary" id="submit-preview">Submit Form</button>
+                        </div>
+                    </div>
+                    
+                    <div class="preview-container">
+                        <div id="preview-form" class="preview-form"></div>
+                        <div class="empty-preview" id="empty-preview">
+                            <span class="material-icons">preview</span>
+                            <p>No form to preview. Create a form first.</p>
+                            <a href="#create" class="btn btn--primary">Create Form</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- My Forms Page -->
+            <div id="myforms-page" class="page hidden">
+                <div class="container">
+                    <div class="page-header">
+                        <h2>My Forms</h2>
+                        <a href="#create" class="btn btn--primary">Create New Form</a>
+                    </div>
+                    
+                    <div class="forms-list" id="forms-list">
+                        <div class="empty-forms" id="empty-forms">
+                            <span class="material-icons">folder_open</span>
+                            <p>No saved forms yet.</p>
+                            <a href="#create" class="btn btn--primary">Create Your First Form</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Modals -->
+        <!-- Field Configuration Modal -->
+        <div id="field-config-modal" class="modal hidden">
+            <div class="modal__backdrop"></div>
+            <div class="modal__content">
+                <div class="modal__header">
+                    <h3 id="modal-title">Configure Field</h3>
+                    <button class="modal__close" id="close-modal">
+                        <span class="material-icons">close</span>
+                    </button>
+                </div>
+                <div class="modal__body">
+                    <form id="field-config-form">
+                        <div class="form-group">
+                            <label class="form-label">Field Label *</label>
+                            <input type="text" class="form-control" id="field-label" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">
+                                <input type="checkbox" id="field-required"> Required Field
+                            </label>
+                        </div>
+                        
+                        <div class="form-group" id="default-value-group">
+                            <label class="form-label">Default Value</label>
+                            <input type="text" class="form-control" id="field-default">
+                        </div>
+                        
+                        <div class="form-group" id="options-group" class="hidden">
+                            <label class="form-label">Options (one per line)</label>
+                            <textarea class="form-control" id="field-options" rows="4" placeholder="Option 1&#10;Option 2&#10;Option 3"></textarea>
+                        </div>
+                        
+                        <div class="form-group" id="derived-config-group" class="hidden">
+                            <label class="form-label">Derived Field Type</label>
+                            <select class="form-control" id="derived-type">
+                                <option value="age">Age from Date of Birth</option>
+                                <option value="fullName">Full Name</option>
+                                <option value="calculation">Mathematical Calculation</option>
+                                <option value="conditional">Conditional Logic</option>
+                            </select>
+                            
+                            <div id="parent-fields-group" class="form-group">
+                                <label class="form-label">Parent Fields</label>
+                                <div id="parent-fields-list"></div>
+                            </div>
+                            
+                            <div id="formula-group" class="form-group">
+                                <label class="form-label">Formula/Logic</label>
+                                <input type="text" class="form-control" id="field-formula" placeholder="e.g., field1 + field2">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Validation Rules</label>
+                            <div class="validation-rules">
+                                <label class="validation-rule">
+                                    <input type="checkbox" class="validation-checkbox" data-rule="minLength">
+                                    Min Length: <input type="number" class="validation-input" data-rule="minLength" min="1">
+                                </label>
+                                <label class="validation-rule">
+                                    <input type="checkbox" class="validation-checkbox" data-rule="maxLength">
+                                    Max Length: <input type="number" class="validation-input" data-rule="maxLength" min="1">
+                                </label>
+                                <label class="validation-rule">
+                                    <input type="checkbox" class="validation-checkbox" data-rule="email">
+                                    Email Format
+                                </label>
+                                <label class="validation-rule">
+                                    <input type="checkbox" class="validation-checkbox" data-rule="password">
+                                    Password (8+ chars, includes number)
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal__footer">
+                    <button class="btn btn--secondary" id="cancel-config">Cancel</button>
+                    <button class="btn btn--primary" id="save-config">Save Field</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Save Form Modal -->
+        <div id="save-form-modal" class="modal hidden">
+            <div class="modal__backdrop"></div>
+            <div class="modal__content">
+                <div class="modal__header">
+                    <h3>Save Form</h3>
+                    <button class="modal__close" id="close-save-modal">
+                        <span class="material-icons">close</span>
+                    </button>
+                </div>
+                <div class="modal__body">
+                    <form id="save-form-form">
+                        <div class="form-group">
+                            <label class="form-label">Form Name *</label>
+                            <input type="text" class="form-control" id="form-name" required placeholder="Enter form name">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal__footer">
+                    <button class="btn btn--secondary" id="cancel-save">Cancel</button>
+                    <button class="btn btn--primary" id="confirm-save">Save Form</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notifications -->
+        <div id="notifications" class="notifications"></div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
