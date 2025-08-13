@@ -8,6 +8,7 @@
 ![Vite](https://img.shields.io/badge/Bundler-Vite-orange)  
 <img width="1845" height="852" alt="image" src="https://github.com/balu1006/react-form-builder/blob/main/image.png" />
 <img width="1845" height="852" alt="image" src="https://github.com/balu1006/react-form-builder/blob/main/image1.png"/>
+<img width="1845" height="852" alt="image" src="https://github.com/balu1006/react-form-builder/blob/main/image2.png"/>
 ---
 
 ## 📖 Overview  
